@@ -16,3 +16,16 @@ while True:
         else:
             print("🚀 Congratulations! you guessed the secret number 🚀")
             break
+
+          #computer turn
+        attempt_computador = random.randint(1, 100)
+        print("Computer turn, assumption:", attempt_computador)
+       
+        
+        if attempt_computador < secret_number:
+            print("The computer's assumption is low 🤯")
+        elif attempt_computador > secret_number:
+            print("The computer's assumption is high 🙁")
+        else:
+            print("The computer guessed the secret number 💻")
+            break
