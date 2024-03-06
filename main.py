@@ -1,42 +1,61 @@
-#Import the random module to generate random numbers.
 import random
 
+def get_secret_number():
+    return random.randint(1, 100)
+
+def get_player_name():
+    return input("Please, write your name: ")
+
+def player_guess(player_name):
+    return int(input(f"Your turn {player_name}: Make your guess: "))
+
+def evaluate_guess(guess, secret_number, attempts):
+    attempts.append(guess)
+    
+    if guess < secret_number:
+        print("Your assumption has been low 🙁")
+    elif guess > secret_number:
+        print("Your assumption has been high 🤯")
+    else:
+        print(f"🚀 Congratulations! you guessed the secret number in {len(attempts)} attempts🚀")
+        return True
+    return False
+
+def player_turn(player_name, secret_number, attempts):
+    guess = player_guess(player_name)
+    return evaluate_guess(guess, secret_number, attempts)
+
+ #Binary search
+def computer_smart_guess(min_num, max_num, secret_number):
+    return (min_num + max_num) // 2
+
+def computer_turn_smart(secret_number, attempts):
+    guess = computer_smart_guess(1, 100, secret_number)
+    attempts.append(guess)
+    
+    print("Computer turn, assumption:", guess)
+    
+    if guess < secret_number:
+        print("The computer's assumption is low 🤯")
+    elif guess > secret_number:
+        print("The computer's assumption is high 🙁")
+    else:
+        print(f"The computer 💻 guessed the secret number in {len(attempts)} attempts")
+        return True
+    return False
+
 def guess_number():
-    secret_number = random.randint(1, 100)
-    #print("generated random number:", secret_number)
+    secret_number = get_secret_number()
     attempts_player = []
     attempts_computer = []
-   
     print("Welcome! I challenge you to guess the number I'm thinking of between 1 and 100 😎")
 
-    player_name = input("Please, write your name: ")
+    player_name = get_player_name()
     while True:
-        #player's turn
-        
-        attempt_player = int(input(f"Your turn {player_name}: Make your guess: "))
-       
-        attempts_player.append(attempt_player)
-        
-        if attempt_player < secret_number:
-            print("Your assumption has been low 🙁")
-        elif attempt_player > secret_number:
-            print("Your assumption has been high 🤯")
-        else:
-            print(f"🚀 Congratulations! you guessed the secret number in {len(attempts_player)} attempts🚀")
+        if player_turn(player_name, secret_number, attempts_player):
             break
-
-        #computer turn
-        attempt_computer = random.randint(1, 100)
-        print("Computer turn, assumption:", attempt_computer)
         
-        attempts_computer.append(attempt_computer)
-        
-        if attempt_computer < secret_number:
-            print("The computer's assumption is low 🤯")
-        elif attempt_computer > secret_number:
-            print("The computer's assumption is high 🙁")
-        else:
-            print(f"The computer 💻 guessed the secret number in {len(attempts_computer)} attempts")
+        if computer_turn_smart(secret_number, attempts_computer):
             break
 
 guess_number()
