@@ -7,7 +7,13 @@ def get_player_name():
     return input("Please, write your name: ")
 
 def player_guess(player_name):
-    return int(input(f"Your turn {player_name}: Make your guess: "))
+    while True:
+        try:
+            guess = int(input(f"Your turn {player_name}: Make your guess: "))
+            return guess
+        except ValueError:
+            print("Invalid input! Please enter a valid number.")
+
 
 def evaluate_guess(guess, secret_number, attempts):
     attempts.append(guess)
@@ -45,17 +51,21 @@ def computer_turn_smart(secret_number, attempts):
     return False
 
 def guess_number():
-    secret_number = get_secret_number()
-    attempts_player = []
-    attempts_computer = []
-    print("Welcome! I challenge you to guess the number I'm thinking of between 1 and 100 😎")
+    play_again = 'yes'
+    while play_again == 'yes':
+        secret_number = get_secret_number()
+        attempts_player = []
+        attempts_computer = []
+        print("Welcome! I challenge you to guess the number I'm thinking of between 1 and 100 😎")
 
-    player_name = get_player_name()
-    while True:
-        if player_turn(player_name, secret_number, attempts_player):
-            break
+        player_name = get_player_name()
+        while True:
+            if player_turn(player_name, secret_number, attempts_player):
+                break
+            
+            if computer_turn_smart(secret_number, attempts_computer):
+                break
         
-        if computer_turn_smart(secret_number, attempts_computer):
-            break
+        play_again = input("Do you want to play again? (yes/no): ").lower()
 
 guess_number()
