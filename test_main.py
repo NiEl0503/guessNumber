@@ -36,5 +36,25 @@ class TestPlayerGuess(unittest.TestCase):
         guess = main.player_guess('Test')
         self.assertEqual(guess, 10)
 
+class TestEvaluateGuess(unittest.TestCase):
+
+    def test_evaluate_guess_low(self):
+        attempts = []
+        result = main.evaluate_guess(10, 50, attempts)
+        self.assertFalse(result)
+        self.assertIn(10, attempts)
+    
+    def test_evaluate_guess_high(self):
+        attempts = []
+        result = main.evaluate_guess(80, 50, attempts)
+        self.assertFalse(result)
+        self.assertIn(80, attempts)
+
+    def test_evaluate_guess_correct(self):
+        attempts = []
+        result = main.evaluate_guess(50, 50, attempts)
+        self.assertTrue(result)
+        self.assertIn(50, attempts)
+
 if __name__ == '__main__':
     unittest.main()
