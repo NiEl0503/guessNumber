@@ -9,6 +9,21 @@ class TestGetSecretNumber(unittest.TestCase):
         secret_number = main.get_secret_number()
         self.assertEqual(secret_number, 42)
 
+class TestGetPlayerName(unittest.TestCase):
+
+    @patch('builtins.input', return_value='John')
+    def test_get_player_name_valid_input(self, mock_input):
+        player_name = main.get_player_name()
+        self.assertEqual(player_name, 'John')
+
+    @patch('builtins.input', side_effect=['', 'Jane'])
+    def test_get_player_name_empty_input_then_valid_input(self, mock_input):
+        player_name = main.get_player_name()
+        self.assertEqual(player_name, '')
+
+        player_name = main.get_player_name()
+        self.assertEqual(player_name, 'Jane')
+
 class TestPlayerGuess(unittest.TestCase):
 
     @patch('builtins.input', side_effect=['10'])
