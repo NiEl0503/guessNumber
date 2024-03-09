@@ -80,5 +80,6 @@ def guess_number():
             
         play_again = input("Do you want to play again? (yes/no): ").lower()
 
-guess_number()
+if __name__ == "__main__":
+    guess_number()
 
