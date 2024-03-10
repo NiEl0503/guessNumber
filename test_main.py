@@ -56,5 +56,16 @@ class TestEvaluateGuess(unittest.TestCase):
         self.assertTrue(result)
         self.assertIn(50, attempts)
 
+class TestPlayerTurn(unittest.TestCase):
+
+    @patch('main.player_guess', return_value=50)
+    @patch('main.evaluate_guess', return_value=True)
+    def test_player_turn(self, mock_evaluate_guess, mock_player_guess):
+        attempts = []
+        result = main.player_turn('Test', 50, attempts)
+        self.assertTrue(result)
+        mock_player_guess.assert_called_once_with('Test')
+        mock_evaluate_guess.assert_called_once_with(50, 50, attempts)
+
 if __name__ == '__main__':
     unittest.main()
