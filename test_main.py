@@ -78,5 +78,13 @@ class TestComputerTurnSmart(unittest.TestCase):
         self.assertIn(50, attempts)
         mock_computer_smart_guess.assert_called_once_with(1, 100)
 
+class TestComputerSmartGuess(unittest.TestCase):
+
+    def test_computer_smart_guess(self):
+        min_num = 1
+        max_num = 100
+        guess = main.computer_smart_guess(min_num, max_num)
+        self.assertTrue(min_num <= guess <= max_num)
+
 if __name__ == '__main__':
     unittest.main()
