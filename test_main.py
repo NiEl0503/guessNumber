@@ -86,5 +86,17 @@ class TestComputerSmartGuess(unittest.TestCase):
         guess = main.computer_smart_guess(min_num, max_num)
         self.assertTrue(min_num <= guess <= max_num)
 
+class TestGuessNumber(unittest.TestCase):
+
+    @patch('builtins.input', side_effect=['Test', 'no'])
+    @patch('main.get_secret_number', return_value=50)
+    @patch('main.player_turn', return_value=True)
+    @patch('main.computer_turn_smart', return_value=False)
+    def test_guess_number(self, mock_computer_turn_smart, mock_player_turn, mock_get_secret_number, mock_input):
+        main.guess_number()
+        mock_get_secret_number.assert_called_once()
+        mock_player_turn.assert_called_once_with('Test', 50, [])
+        mock_computer_turn_smart.assert_not_called()
+
 if __name__ == '__main__':
     unittest.main()
