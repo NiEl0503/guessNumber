@@ -67,5 +67,16 @@ class TestPlayerTurn(unittest.TestCase):
         mock_player_guess.assert_called_once_with('Test')
         mock_evaluate_guess.assert_called_once_with(50, 50, attempts)
 
+class TestComputerTurnSmart(unittest.TestCase):
+
+    @patch('main.computer_smart_guess', return_value=50)
+    def test_computer_turn_smart(self, mock_computer_smart_guess):
+        attempts = []
+        secret_number = 50
+        result = main.computer_turn_smart(secret_number, attempts)
+        self.assertTrue(result)
+        self.assertIn(50, attempts)
+        mock_computer_smart_guess.assert_called_once_with(1, 100)
+
 if __name__ == '__main__':
     unittest.main()
