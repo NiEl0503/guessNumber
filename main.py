@@ -77,8 +77,13 @@ def guess_number():
                 break
             print_separator()
 
-            
-        play_again = input("Do you want to play again? (yes/no): ").lower()
+        while True:
+            play_again = input("Do you want to play again? (yes/no): ").lower()
+            if play_again in ['yes', 'no']:
+                break
+            else:
+                print("Please enter 'yes' or 'no'.")
+
 
 if __name__ == "__main__":
     guess_number()
