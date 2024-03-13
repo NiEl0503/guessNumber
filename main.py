@@ -23,7 +23,8 @@ def evaluate_guess(guess, secret_number, attempts):
     elif guess > secret_number:
         print("Your assumption has been high 🤯")
     else:
-        print(f"🚀 Congratulations! you guessed the secret number in {len(attempts)} attempts🚀")
+        print(f"🚀 Congratulations! guessed the secret number in {len(attempts)} attempts🚀")
+        print("Attempts:", attempts)
         return True
     return False
 
@@ -48,6 +49,7 @@ def computer_turn_smart(secret_number, attempts):
         max_num = guess - 1
     else:
         print(f"The computer 💻 guessed the secret number in {len(attempts)} attempts")
+        print("Attempts:", attempts)
         return True
 
     return False
@@ -77,8 +79,13 @@ def guess_number():
                 break
             print_separator()
 
-            
-        play_again = input("Do you want to play again? (yes/no): ").lower()
+        while True:
+            play_again = input("Do you want to play again? (yes/no): ").lower()
+            if play_again in ['yes', 'no']:
+                break
+            else:
+                print("Please enter 'yes' or 'no'.")
+
 
 if __name__ == "__main__":
     guess_number()
